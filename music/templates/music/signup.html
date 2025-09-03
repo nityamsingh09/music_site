@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-gray-800 p-6 rounded-xl shadow-lg mt-10">
+    <h2 class="text-2xl font-bold text-center text-orange-400 mb-6">Sign Up</h2>
+
+    <!-- Signup form -->
+    <form method="post" action="{% url 'account_signup' %}" class="space-y-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="w-full bg-green-500 py-2 rounded-lg hover:bg-green-600">
+            Sign Up
+        </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="my-6 text-center text-gray-400">OR</div>
+
+    <!-- Google Signup -->
+    <div class="text-center">
+        <a href="{% provider_login_url 'google' %}" 
+           class="w-full inline-block bg-red-500 py-2 px-4 rounded-lg hover:bg-red-600">
+           🔗 Continue with Google
+        </a>
+    </div>
+
+    <p class="text-center text-sm text-gray-400 mt-4">
+        Already have an account? 
+        <a href="{% url 'account_login' %}" class="text-blue-400 hover:underline">Login</a>
+    </p>
+</div>
+{% endblock %}

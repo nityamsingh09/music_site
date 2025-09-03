@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto mt-8 bg-gray-900 text-white rounded-2xl shadow-lg p-6">
+
+    <h1 class="text-2xl font-bold text-orange-400 mb-6">🎶 My Playlists</h1>
+
+    {% if playlists %}
+        <ul class="space-y-4">
+            {% for playlist in playlists %}
+                <li class="bg-gray-800 p-4 rounded-lg shadow flex items-center justify-between hover:bg-gray-700">
+                    <div>
+                        <a href="{% url 'playlist_detail' playlist.id %}" 
+                           class="text-lg text-orange-400 font-semibold hover:underline">
+                            {{ playlist.name }}
+                        </a>
+                        <p class="text-sm text-gray-400">
+                            Created on {{ playlist.created_at|date:"F j, Y" }}
+                        </p>
+                    </div>
+                    <a href="{% url 'playlist_detail' playlist.id %}" 
+                       class="bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg">
+                        View →
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-gray-400">You haven’t created any playlists yet.</p>
+        <a href="{% url 'playlist_create' %}" 
+           class="inline-block mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg">
+            ➕ Create New Playlist
+        </a>
+    {% endif %}
+
+</div>
+{% endblock %}

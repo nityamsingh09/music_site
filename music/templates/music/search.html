@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto mt-8 bg-gray-900 text-white rounded-2xl shadow-lg p-6">
+
+    <!-- Search header -->
+    <h1 class="text-2xl font-bold text-orange-400 mb-6">
+        Search Results for "{{ q }}"
+    </h1>
+
+    <!-- Songs -->
+    <div class="mb-8">
+        <h2 class="text-xl font-semibold text-white mb-3">🎵 Songs</h2>
+        {% if song_results %}
+            <ul class="space-y-2">
+                {% for song in song_results %}
+                    <li class="flex items-center justify-between bg-gray-800 p-3 rounded-lg hover:bg-gray-700">
+                        <div>
+                            <a href="{% url 'song_detail' song.id %}" class="text-lg text-orange-400 font-medium hover:underline">
+                                {{ song.title }}
+                            </a>
+                            <p class="text-sm text-gray-400">
+                                by 
+                                {% for artist in song.artists.all %}
+                                    <a href="{% url 'artist_detail' artist.id %}" class="text-orange-300 hover:underline">
+                                        {{ artist.name }}
+                                    </a>{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                         <audio controls class="w-full rounded-lg overflow-hidden">
+                        <source src="{{ song.audio_file.url }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-gray-400">No songs found.</p>
+        {% endif %}
+    </div>
+
+    <!-- Artists -->
+    <div>
+        <h2 class="text-xl font-semibold text-white mb-3">👩‍🎤 Artists</h2>
+        {% if artist_results %}
+            <ul class="space-y-2">
+                {% for artist in artist_results %}
+                    <li class="bg-gray-800 p-3 rounded-lg hover:bg-gray-700">
+                        <a href="{% url 'artist_detail' artist.id %}" class="text-lg text-orange-400 font-medium hover:underline">
+                            {{ artist.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-gray-400">No artists found.</p>
+        {% endif %}
+    </div>
+
+    <!-- Back button -->
+    <div class="mt-6">
+        <a href="/" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow">
+            ⬅ Back to Home
+        </a>
+    </div>
+</div>
+{% endblock %}

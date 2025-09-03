@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto mt-6">
+    <!-- Artist Profile Section -->
+    <div class="bg-gray-800 rounded-xl p-6 shadow-lg flex items-center space-x-6">
+        {% if artist.image %}
+            <img src="{{ artist.image.url }}" 
+                 alt="{{ artist.name }}" 
+                 class="w-28 h-28 object-cover rounded-full shadow-lg">
+        {% else %}
+            <div class="w-28 h-28 flex items-center justify-center bg-gray-700 text-gray-400 rounded-full">
+                🎤
+            </div>
+        {% endif %}
+
+        <div>
+            <h1 class="text-3xl font-bold text-orange-400">{{ artist.name }}</h1>
+            <p class="text-gray-400 mt-1">Artist Profile</p>
+        </div>
+    </div>
+
+    <!-- Songs List -->
+    <h2 class="text-2xl font-semibold text-white mt-8 mb-4">🎵 Songs by {{ artist.name }}</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for song in songs %}
+            <div class="bg-gray-900 rounded-xl shadow-lg p-4 hover:scale-105 transition duration-200">
+                <!-- Song Title -->
+                <h3 class="text-lg font-semibold text-white truncate">{{ song.title }}</h3>
+
+                  <!-- 🎵 Audio Player -->
+                {% if song.audio_file %}
+                <div class="mt-4 bg-gray-900 p-3 rounded-lg shadow-md">
+                    <audio controls class="w-full rounded-lg overflow-hidden">
+                        <source src="{{ song.audio_file.url }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                {% endif %}
+
+                
+
+                <!-- Uploaded Date -->
+                <p class="text-xs text-gray-500 mt-2">Uploaded on {{ song.created_at|date:"M d, Y" }}</p>
+            </div>
+        {% empty %}
+            <p class="text-gray-400">No songs available for this artist.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

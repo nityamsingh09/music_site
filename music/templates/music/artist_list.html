@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto mt-10">
+    <h1 class="text-3xl font-bold text-orange-500 mb-8 text-center">🎤 Artists</h1>
+
+    {% if artists %}
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+            {% for artist in artists %}
+            <div class="bg-gray-900 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+                <a href="{% url 'artist_detail' artist.pk %}">
+                    {% if artist.image %}
+                        <img src="{{ artist.image.url }}" alt="{{ artist.name }}" class="w-full h-48 object-cover">
+                    {% else %}
+                        <div class="w-full h-48 flex items-center justify-center bg-gray-800 text-gray-400">
+                            No Image
+                        </div>
+                    {% endif %}
+                    <div class="p-4 text-center">
+                        <h2 class="text-lg font-semibold text-white">{{ artist.name }}</h2>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-gray-400">No artists available.</p>
+    {% endif %}
+</div>
+{% endblock %}

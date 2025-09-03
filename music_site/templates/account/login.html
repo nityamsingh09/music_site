@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+{% comment %} {% extends "base.html" %} {% endcomment %}
+{% block content %}
+<h1 style="color:red">🚀 Custom Login Loaded</h1>
+{% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-[80vh]">
+  <div class="bg-gray-800 p-8 rounded-2xl shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-bold text-center text-orange-400 mb-6">Sign In</h2>
+
+    <!-- Django form -->
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div>
+        <label class="block mb-1">Username or Email</label>
+        {{ form.login }}
+        {{ form.login.errors }}
+      </div>
+
+      <div>
+        <label class="block mb-1">Password</label>
+        {{ form.password }}
+        {{ form.password.errors }}
+      </div>
+
+      <div class="flex justify-between items-center text-sm">
+        <label class="flex items-center">
+          {{ form.remember }}
+          <span class="ml-2">Remember Me</span>
+        </label>
+        <a href="{% url 'account_reset_password' %}" class="text-blue-400 hover:underline">
+          Forgot password?
+        </a>
+      </div>
+
+      <button type="submit"
+              class="w-full bg-blue-500 hover:bg-blue-600 py-2 rounded text-white font-semibold">
+        Sign In
+      </button>
+    </form>
+
+    <div class="mt-6 text-center text-gray-400">Or use a third-party</div>
+
+    <!-- Google login -->
+    <div class="mt-4">
+      <a href="{% provider_login_url 'google' %}"
+         class="w-full inline-flex items-center justify-center bg-red-500 hover:bg-red-600 py-2 rounded text-white font-semibold">
+        Continue with Google
+      </a>
+    </div>
+
+    <p class="mt-6 text-center text-gray-300">
+      Don’t have an account? 
+      <a href="{% url 'account_signup' %}" class="text-green-400 hover:underline">Sign Up</a>
+    </p>
+  </div>
+</div>
+{% endblock %}
