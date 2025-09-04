@@ -30,6 +30,12 @@ ALLOWED_HOSTS = ["*",
                 "musicsite-production-9cc6.up.railway.app",]
 
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://musicsite-production-9cc6.up.railway.app",
+    "https://cheerful-compassion-production-5eaf.up.railway.app",
+]
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -167,4 +173,5 @@ LOGOUT_REDIRECT_URL = 'home'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
