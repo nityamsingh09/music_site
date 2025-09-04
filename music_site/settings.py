@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-)j%j&sxmw^*h364x%m&3+wvv)kysavr59t2i*iel2-7svrc061
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*",
+                "musicsite-production-9cc6.up.railway.app",]
 
 
 # Application definition
@@ -166,3 +167,4 @@ LOGOUT_REDIRECT_URL = 'home'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
